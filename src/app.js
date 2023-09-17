@@ -1,11 +1,15 @@
 import express from "express";
+import helmet from "helmet";
 import { config } from "./config/config.js";
-import { connectDB } from "./dao/dbManager.js";
+import { connectDB } from "./config/dbConection.js";
+import exphbs from 'express-handlebars';
 import { engine } from 'express-handlebars';
 import path from "path";
 import {__dirname} from "./utils.js";
 import { Server } from "socket.io";
-import { viewsRouter} from "./routes/viewsRouter.js"
+import { viewsRouter} from "./routes/viewsRouter.js";
+import { productRouter } from "./routes/productRouter.js";
+import { cartRouter } from "./routes/cartRouter.js";
 
 
 const app = express();
@@ -19,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname,"/public")));
 
-app.engine('handlebars', handlebars.engine());
+app.engine('handlebars', exphbs.engine());
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
