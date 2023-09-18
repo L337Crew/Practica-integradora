@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ProductController } from '../controllers/productController.js';
+import ProductController from '../controllers/productController.js';
 
 const router = Router();
 const productController = new ProductController();
@@ -55,4 +55,4 @@ router.delete('/:pid', async (req, res) => {
   }
 });
 
-export {router as productRoutes};
+export {router as productRouter};

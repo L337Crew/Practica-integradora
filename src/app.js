@@ -1,6 +1,6 @@
 import express from "express";
 import helmet from "helmet";
-import { config } from "./config/config.js";
+import { serverConfig } from "./config/config.js";
 import { connectDB } from "./config/dbConection.js";
 import exphbs from 'express-handlebars';
 import { engine } from 'express-handlebars';
@@ -13,7 +13,7 @@ import { cartRouter } from "./routes/cartRouter.js";
 
 
 const app = express();
-const port = config.server.port;
+const port = serverConfig.port;
 const httpServer =  app.listen(port,()=>console.log(`Server listening on port ${port}`));
 const io = new Server(httpServer);
 
