@@ -28,7 +28,7 @@ router.get("/products",async(req,res)=>{
             lean: true
         });
         // console.log(result);
-        //              http://localhost:8080/products?limit=20
+      
         const baseUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`
         const resultProductsView = {
             status:"success",

@@ -30,3 +30,20 @@ const productSchema = new mongoose.Schema({
 productSchema.plugin(mongoosePaginate);
 
 export const productsModel = mongoose.model(productsCollection, productSchema);
+
+
+/* crear un producto:
+{
+  "title": "Nombre del Producto",
+  "description": "Descripción del producto",
+  "code": "Código del producto",
+  "price": 100,  // Precio del producto (debe ser un número)
+  "status": true,  // Estado del producto (debe ser true o false)
+  "stock": 10,  // Cantidad en stock (debe ser un número)
+  "category": "Categoría del producto",
+  "thumbnails": ["URL de la imagen 1", "URL de la imagen 2"]
+}
+
+
+
+*/ 
