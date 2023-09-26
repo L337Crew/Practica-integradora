@@ -13,6 +13,16 @@ router.post("/", async (req, res) => {
         res.json({ status: "error", message: error.message });
     }
 });
+router.post("/:cid/product/:pid", async (req, res) => {
+    try {
+      const cartId = req.params.cid;
+      const productId = req.params.pid;
+      const cart = await cartService.addProductToCart(cartId, productId);
+      res.json({ status: "success", data: cart });  
+    } catch (error) {
+      res.json({ status: "error", message: error.message });
+    }
+  });
 
 // Ruta para obtener un carrito por su ID y sus productos completos
 router.get("/:cid", async (req, res) => {

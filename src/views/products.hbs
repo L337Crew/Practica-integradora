@@ -23,7 +23,11 @@
 {{/if}}
 
 <script>
-    const addToCart = (productId)=>{
-        console.log(`producto recibido ${productId}`);
-    }
+const addToCart = async (productId) => {
+  const res = await fetch(`/api/carts/${cartId}/product/${productId}`);
+  const data = await res.json();
+  if (data.status === "success") {
+    Swal.fire("Agregado al carrito!", "", "success"); 
+  }
+}  
 </script>

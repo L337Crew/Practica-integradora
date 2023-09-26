@@ -1,6 +1,16 @@
 import { Router } from "express";
 import { productService } from "../dao/index.js";
 
+
+const validateFields = (req,res,next)=>{
+  const productInfo = req.body;
+  if(!productInfo.title || !productInfo.price){
+      return res.json({status:"error", message:"campos incompletos"})
+  } else {
+      next();
+  }
+};
+
 const router = Router();
 
 router.get("/",(req,res)=>{
@@ -50,4 +60,27 @@ router.get("/products",async(req,res)=>{
     }
 });
 
+router.post("/", validateFields, async (req, res) => {
+    try {
+      const productInfo = req.body;
+      const productCreated = await productService.save(productInfo);
+      res.status(201).json({ 
+        status: "success",  
+        data: productCreated, 
+        message: "producto creado"
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        status: "error",  
+        message: "Error al crear el producto" 
+      });
+    }
+  });
+  router.get("/cart/:cid", async (req, res) => {
+    const cart = await cartService.getById(req.params.cid).populate("products.product");
+    res.render("cart", { cart });
+  });
+
+  
 export {router as viewsRouter};
