@@ -1,6 +1,20 @@
-<p style="color:red"><strong>{{error}}</strong></p>
+<!-- En la vista products.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productos</title>
+</head>
+<body>
+  <!-- Cambio agregado para mostrar el mensaje de bienvenida -->
+  {{#if user}}
+    <h1>Bienvenido, {{user.username}}!</h1>
+  {{/if}}
+  
+  <p style="color:red"><strong>{{error}}</strong></p>
 
-{{#if payload}}
+  {{#if payload}}
     <h1>Listado de Productos</h1>
     <ul>
     {{#each payload}}
@@ -18,16 +32,18 @@
     {{#if hasNextPage}}
         <a href={{nextLink}}>Siguiente</a>
     {{/if}}
-{{else}}
+  {{else}}
     <h2>No hay productos</h2>
-{{/if}}
+  {{/if}}
 
-<script>
-const addToCart = async (productId) => {
-  const res = await fetch(`/api/carts/${cartId}/product/${productId}`);
-  const data = await res.json();
-  if (data.status === "success") {
-    Swal.fire("Agregado al carrito!", "", "success"); 
-  }
-}  
-</script>
+  <script>
+    const addToCart = async (productId) => {
+      const res = await fetch(`/api/carts/${cartId}/product/${productId}`);
+      const data = await res.json();
+      if (data.status === "success") {
+        Swal.fire("Agregado al carrito!", "", "success"); 
+      }
+    }
+  </script>
+</body>
+</html>

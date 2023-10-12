@@ -97,4 +97,25 @@ router.delete("/:pid", async (req, res) => {
   }
 });
 
+// Cambios para el Punto 6
+router.get("/", async (req, res) => {
+  try {
+    const limit = req.query.limit;
+    const products = await productService.get();
+
+    if (limit) {
+      const limitedProducts = products.slice(0, parseInt(limit));
+
+      // Agregamos esta parte para pasar el nombre de usuario
+      res.render("products", { user: req.user, data: limitedProducts });
+    } else {
+      // Agregamos esta parte para pasar el nombre de usuario
+      res.render("products", { user: req.user, data: products });
+    }
+  } catch (error) {
+    res.json({ status: "error", message: error.message });
+  }
+});
+
 export { router as productsRouter };
+

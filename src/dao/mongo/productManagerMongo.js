@@ -5,9 +5,28 @@ export class ProductManagerMongo {
     this.model = productsModel;
   }
 
-  async get() {
+  async get(queryParams) {
     try {
-      const products = await this.model.find().lean();
+      const { category, available, sortBy } = queryParams;
+      const query = {};
+
+      if (category) {
+        query.category = category;
+      }
+
+      if (available === "true") {
+        query.status = true;
+      }
+
+      let sortOptions = {};
+
+      if (sortBy === "price-desc") {
+        sortOptions.price = -1;
+      } else if (sortBy === "price-asc") {
+        sortOptions.price = 1;
+      }
+
+      const products = await this.model.find(query).sort(sortOptions).lean();
       return products;
     } catch (error) {
       console.error("Error en get:", error);
