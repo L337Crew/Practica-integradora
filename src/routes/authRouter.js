@@ -28,6 +28,11 @@ authRouter.get('/login', (req, res) => {
   res.render('login'); // Asegúrate de que tengas una vista 'login.handlebars' en tu carpeta 'views'
 });
 
+// Ruta para mostrar el formulario de registro de un nuevo usuario
+authRouter.get('/register', (req, res) => {
+  res.render('register'); // Asegúrate de que tengas una vista 'register.handlebars' en tu carpeta 'views'
+});
+
 // Ruta para procesar el registro de un nuevo usuario
 authRouter.post('/register', async (req, res) => {
   try {
@@ -51,3 +56,4 @@ authRouter.get('/logout', (req, res) => {
 });
 
 export default authRouter;
+  
