@@ -8,6 +8,7 @@ import { productsRouter } from "./routes/productRouter.js";
 import { cartsRouter } from "./routes/cartsRouter.js";
 import { config } from "./config/config.js";
 import dotenv from "dotenv";
+import MongoStore from "connect-mongo";
 
 // Importa las librerías necesarias para autenticación y sesiones
 import session from 'express-session';

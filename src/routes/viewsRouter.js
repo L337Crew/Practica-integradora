@@ -17,6 +17,20 @@ router.get("/",(req,res)=>{
     res.render("home");
 });
 
+router.get("/register",(req,res)=>{
+  res.render("register");
+});
+
+router.get("/login", (req,res)=>{
+  res.render("login");
+});
+
+router.get("/perfil",  (req,res)=>{
+  console.log(req.session);
+  res.render("profile",{user: req.session.userInfo});
+});
+
+
 router.get("/products",async(req,res)=>{
     try {
         //capturar los valores de los queries
