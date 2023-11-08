@@ -8,13 +8,14 @@ import { productsRouter } from "./routes/productRouter.js";
 import { cartsRouter } from "./routes/cartsRouter.js";
 import { config } from "./config/config.js";
 import dotenv from "dotenv";
-import MongoStore from "connect-mongo";
+import MongoStore  from "connect-mongo";
 
 // Importa las librerías necesarias para autenticación y sesiones
 import session from 'express-session';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
-import User from './dao/models/userModel.js'; // Importa el modelo de usuario
+import { usersModel } from "./dao/models/usersModel.js"; // Importa el modelo de usuario
+import { sessionsRouter } from "./routes/sessionsRouter.js";
 
 dotenv.config();
 
@@ -27,14 +28,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Configura sesiones y estrategia de autenticación local
-app.use(session({ secret: 'your-secret-key', resave: false, saveUninitialized: true }));
+app.use(session({
+  store:MongoStore.create({
+      mongoUrl:config.mongo.url
+  }),
+  secret:config.server.secretSession,
+  resave:true,
+  saveUninitialized:true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Configurar estrategia de autenticación local con Passport
-passport.use(new LocalStrategy({ usernameField: 'email' }, User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+//passport.use(new LocalStrategy({ usernameField: 'email' }, User.authenticate()));
+//passport.serializeUser(User.serializeUser());
+//passport.deserializeUser(User.deserializeUser());
 
 // Configuración de Handlebars (si lo necesitas)
 app.engine('.hbs', engine({ extname: '.hbs' }));
@@ -60,6 +68,7 @@ app.get('/admin', checkRole('admin'), (req, res) => {
 app.use(viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
+app.use("api/sessions", sessionsRouter);
 
 // Middleware de manejo de errores
 app.use((err, req, res, next) => {

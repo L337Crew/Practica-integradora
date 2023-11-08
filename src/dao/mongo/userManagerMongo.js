@@ -1,8 +1,8 @@
-import { userModel } from "../models/userModel.js"
+import { usersModel } from "../models/usersModel.js";
 
 export class UserManagerMongo{
     constructor(){
-        this.model = userModel;
+        this.model = usersModel;
     };
 
     async save(user){

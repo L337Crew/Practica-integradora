@@ -8,7 +8,8 @@ export const mongoConfig = {
 */
 export const config = {
     server:{
-        port:8080
+        port:8080,
+        secretSession:"sKsession"
     },
     fileSystem:{
         productsFile:"products.json",

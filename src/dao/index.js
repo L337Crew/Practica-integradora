@@ -4,6 +4,7 @@ import { CartManager } from "./filesystem/cartManager.js";
 import { ProductManagerMongo } from "./mongo/productManagerMongo.js";
 import { CartManagerMongo } from "./mongo/cartManagerMongo.js";
 import { connectDB } from "../config/dbConection.js";
+import { UserManagerMongo } from "./mongo/userManagerMongo.js";
 
 //persistencia de archivos
 // const productService = new ProductManager(config.fileSystem.productsFile);
@@ -14,6 +15,7 @@ import { connectDB } from "../config/dbConection.js";
 connectDB();
 const productService = new ProductManagerMongo();
 const cartService = new CartManagerMongo();
+const usersService = new UserManagerMongo();
 
 
-export {productService, cartService}
+export {productService, cartService, usersService}
